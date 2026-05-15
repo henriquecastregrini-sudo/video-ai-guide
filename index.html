@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video + AI — Guia Completo do Setup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --bg3: #1a1a26;
+      --bg4: #22223a;
+      --border: rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.14);
+      --text: #e8e8f0;
+      --text2: #9090b0;
+      --text3: #5a5a80;
+      --accent: #7c6af7;
+      --accent2: #9d8fff;
+      --accent3: #c4b8ff;
+      --green: #22d3a0;
+      --green-bg: rgba(34,211,160,0.1);
+      --yellow: #f5c842;
+      --yellow-bg: rgba(245,200,66,0.1);
+      --red: #f04070;
+      --red-bg: rgba(240,64,112,0.1);
+      --blue: #60b0ff;
+      --blue-bg: rgba(96,176,255,0.1);
+      --orange: #ff8c42;
+      --orange-bg: rgba(255,140,66,0.1);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.5);
+      --shadow-lg: 0 8px 48px rgba(0,0,0,0.7);
+      --glow: 0 0 40px rgba(124,106,247,0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 16px;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: 56px;
+    }
+
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent2), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .logo span { font-weight: 300; }
+
+    /* ── TABS NAV ── */
+    .tabs-scroll {
+      flex: 1;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs-scroll::-webkit-scrollbar { display: none; }
+
+    .tabs-nav {
+      display: flex;
+      gap: 4px;
+      padding: 8px 0;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text2);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .tab-btn:hover { background: var(--bg3); color: var(--text); }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(124,106,247,0.4);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, var(--bg) 0%, var(--bg3) 60%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 16px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse, rgba(124,106,247,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.6rem, 5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #fff 30%, var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text2);
+      font-size: clamp(0.85rem, 2.5vw, 1rem);
+      max-width: 600px;
+      margin: 0 auto 20px;
+      line-height: 1.6;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .badge-purple { background: rgba(124,106,247,0.15); color: var(--accent3); border: 1px solid rgba(124,106,247,0.3); }
+    .badge-green  { background: var(--green-bg); color: var(--green); border: 1px solid rgba(34,211,160,0.3); }
+    .badge-blue   { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(96,176,255,0.3); }
+    .badge-orange { background: var(--orange-bg); color: var(--orange); border: 1px solid rgba(255,140,66,0.3); }
+
+    /* ── SECTIONS / PAGES ── */
+    .page { display: none; animation: fadeIn 0.25s ease; }
+    .page.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 16px 80px;
+    }
+
+    /* ── SECTION TITLE ── */
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: clamp(1.3rem, 4vw, 1.8rem);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .section-desc {
+      color: var(--text2);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      max-width: 680px;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 36px 0;
+    }
+
+    /* ── GRID ── */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--border2);
+      box-shadow: var(--glow);
+    }
+
+    .card-accent { border-left: 3px solid var(--accent); }
+    .card-green  { border-left: 3px solid var(--green); }
+    .card-blue   { border-left: 3px solid var(--blue); }
+    .card-orange { border-left: 3px solid var(--orange); }
+    .card-red    { border-left: 3px solid var(--red); }
+
+    .card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 0.82rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    .card-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+
+    /* ── HARDWARE SPECS ── */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .spec-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .spec-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .spec-info { flex: 1; min-width: 0; }
+
+    .spec-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 2px;
+    }
+
+    .spec-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .spec-sub {
+      font-size: 0.75rem;
+      color: var(--text2);
+      margin-top: 2px;
+    }
+
+    .spec-bar {
+      height: 4px;
+      background: var(--bg4);
+      border-radius: 4px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .spec-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--blue));
+      transition: width 1s ease;
+    }
+
+    /* ── STATUS PILL ── */
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .status::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+
+    .status-ok     { background: var(--green-bg); color: var(--green); }
+    .status-ok::before { background: var(--green); box-shadow: 0 0 6px var(--green); }
+
+    .status-warn   { background: var(--yellow-bg); color: var(--yellow); }
+    .status-warn::before { background: var(--yellow); }
+
+    .status-no     { background: var(--red-bg); color: var(--red); }
+    .status-no::before { background: var(--red); }
+
+    .status-info   { background: var(--blue-bg); color: var(--blue); }
+    .status-info::before { background: var(--blue); }
+
+    /* ── TABLES ── */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    thead tr {
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border2);
+    }
+
+    th {
+      padding: 11px 14px;
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text2);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text2);
+      vertical-align: middle;
+    }
+
+    td:first-child { color: var(--text); font-weight: 500; }
+
+    tr:last-child td { border-bottom: none; }
+
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .td-mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent3);
+    }
+
+    /* ── CODE BLOCK ── */
+    .code-block {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent3);
+      overflow-x: auto;
+      line-height: 1.7;
+      margin: 12px 0;
+    }
+
+    .code-comment { color: var(--text3); }
+    .code-cmd { color: var(--green); }
+    .code-str { color: var(--yellow); }
+    .code-key { color: var(--blue); }
+
+    /* ── TIMELINE / STEPS ── */
+    .steps { display: flex; flex-direction: column; gap: 0; }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      position: relative;
+    }
+
+    .step-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 32px;
+    }
+
+    .step-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 0 16px rgba(124,106,247,0.4);
+    }
+
+    .step-connector {
+      width: 2px;
+      flex: 1;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      min-height: 24px;
+      margin-top: 4px;
+    }
+
+    .step-content {
+      padding: 2px 0 28px;
+    }
+
+    .step h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .step p, .step ul {
+      font-size: 0.82rem;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    .step ul { padding-left: 16px; margin-top: 4px; }
+
+    /* ── TOOL CARDS ── */
+    .tool-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .tool-card:hover {
+      border-color: rgba(124,106,247,0.4);
+      transform: translateY(-2px);
+    }
+
+    .tool-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .tool-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .tool-stars {
+      font-size: 0.72rem;
+      color: var(--yellow);
+      white-space: nowrap;
+    }
+
+    .tool-desc {
+      font-size: 0.8rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    .tool-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .tag {
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .tag-purple { background: rgba(124,106,247,0.15); color: var(--accent3); }
+    .tag-green  { background: var(--green-bg); color: var(--green); }
+    .tag-blue   { background: var(--blue-bg); color: var(--blue); }
+    .tag-orange { background: var(--orange-bg); color: var(--orange); }
+    .tag-red    { background: var(--red-bg); color: var(--red); }
+    .tag-gray   { background: var(--bg4); color: var(--text2); }
+
+    /* ── CALLOUT ── */
+    .callout {
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin: 16px 0;
+    }
+
+    .callout-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+    .callout-body { flex: 1; }
+    .callout-title { font-size: 0.82rem; font-weight: 700; margin-bottom: 4px; }
+    .callout-text { font-size: 0.8rem; line-height: 1.5; }
+
+    .callout-purple { background: rgba(124,106,247,0.08); border: 1px solid rgba(124,106,247,0.2); }
+    .callout-purple .callout-title { color: var(--accent3); }
+    .callout-purple .callout-text { color: var(--text2); }
+
+    .callout-green { background: var(--green-bg); border: 1px solid rgba(34,211,160,0.2); }
+    .callout-green .callout-title { color: var(--green); }
+    .callout-green .callout-text { color: var(--text2); }
+
+    .callout-yellow { background: var(--yellow-bg); border: 1px solid rgba(245,200,66,0.2); }
+    .callout-yellow .callout-title { color: var(--yellow); }
+    .callout-yellow .callout-text { color: var(--text2); }
+
+    .callout-red { background: var(--red-bg); border: 1px solid rgba(240,64,112,0.2); }
+    .callout-red .callout-title { color: var(--red); }
+    .callout-red .callout-text { color: var(--text2); }
+
+    /* ── WORKFLOW FLOW ── */
+    .workflow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .wf-item {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .wf-arrow {
+      color: var(--text3);
+      font-size: 1rem;
+    }
+
+    /* ── CAPABILITY METER ── */
+    .cap-meter {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    .cap-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cap-row:last-child { border-bottom: none; }
+
+    .cap-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      width: 130px;
+      flex-shrink: 0;
+    }
+
+    .cap-bar-wrap {
+      flex: 1;
+      height: 6px;
+      background: var(--bg4);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .cap-bar {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .cap-score {
+      font-size: 0.75rem;
+      font-weight: 700;
+      width: 44px;
+      text-align: right;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero { padding: 32px 16px 28px; }
+      .hero h1 { font-size: 1.5rem; }
+      .spec-grid { grid-template-columns: 1fr; }
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .cap-label { width: 90px; font-size: 0.72rem; }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 24px 16px;
+      text-align: center;
+      color: var(--text3);
+      font-size: 0.75rem;
+    }
+
+    footer a { color: var(--accent2); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── SCROLL TO TOP ── */
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 40px; height: 40px;
+      background: var(--accent);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(124,106,247,0.5);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s;
+      z-index: 99;
+    }
+
+    .scroll-top.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── LINK ── */
+    a.link {
+      color: var(--accent2);
+      text-decoration: none;
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    a.link:hover { text-decoration: underline; }
+
+    .mb-4 { margin-bottom: 16px; }
+    .mb-6 { margin-bottom: 24px; }
+    .mt-4 { margin-top: 16px; }
+    .mt-6 { margin-top: 24px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ HEADER ═══════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <div class="logo">Video<span>+</span>AI</div>
+    <div class="tabs-scroll">
+      <nav class="tabs-nav" role="tablist">
+        <button class="tab-btn active" onclick="showTab('hardware', this)" role="tab">💻 Hardware</button>
+        <button class="tab-btn" onclick="showTab('aftereffects', this)" role="tab">🎬 After Effects</button>
+        <button class="tab-btn" onclick="showTab('blender3d', this)" role="tab">🧊 Blender 3D</button>
+        <button class="tab-btn" onclick="showTab('ia-local', this)" role="tab">🤖 IA Local</button>
+        <button class="tab-btn" onclick="showTab('install', this)" role="tab">🚀 Instalação</button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+<section class="hero">
+  <h1>Video + AI — Guia Completo</h1>
+  <p>Tudo que voce precisa saber sobre usar Claude e ferramentas de IA com After Effects, Blender, e criacao de video no seu setup.</p>
+  <div class="hero-badges">
+    <span class="badge badge-purple">🎬 After Effects</span>
+    <span class="badge badge-blue">🧊 Blender MCP</span>
+    <span class="badge badge-green">🤖 LLMs Locais</span>
+    <span class="badge badge-orange">🔊 TTS / Voz</span>
+    <span class="badge badge-purple">⚡ CUDA 13.2</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ PAGE 1: HARDWARE ═══════════════════════════════════ -->
+<div id="tab-hardware" class="page active">
+<div class="container">
+
+  <div class="section-label">Analise do Sistema</div>
+  <h2 class="section-title">Seu Hardware</h2>
+  <p class="section-desc">Especificacoes completas do computador e impacto em cada area de criacao de video com IA.</p>
+
+  <div class="spec-grid mb-6">
+    <div class="spec-card">
+      <div class="spec-icon">🧠</div>
+      <div class="spec-info">
+        <div class="spec-label">CPU</div>
+        <div class="spec-value">Intel Core i5-11400H</div>
+        <div class="spec-sub">2.70 GHz · 6 cores · 12 threads</div>
+        <div class="spec-bar"><div class="spec-bar-fill" style="width: 62%"></div></div>
+      </div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-icon">💾</div>
+      <div class="spec-info">
+        <div class="spec-label">RAM</div>
+        <div class="spec-value">15.8 GB</div>
+        <div class="spec-sub">DDR4 — suficiente para LLMs pequenos</div>
+        <div class="spec-bar"><div class="spec-bar-fill" style="width: 55%"></div></div>
+      </div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-icon">🎮</div>
+      <div class="spec-info">
+        <div class="spec-label">GPU Dedicada</div>
+        <div class="spec-value">NVIDIA GTX 1650</div>
+        <div class="spec-sub">4 GB VRAM · CUDA 13.2 · Driver Abril 2026</div>
+        <div class="spec-bar"><div class="spec-bar-fill" style="width: 38%"></div></div>
+      </div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-icon">💿</div>
+      <div class="spec-info">
+        <div class="spec-label">Armazenamento</div>
+        <div class="spec-value">789 GB livres</div>
+        <div class="spec-sub">953 GB total · Espaco para modelos de IA</div>
+        <div class="spec-bar"><div class="spec-bar-fill" style="width: 83%"></div></div>
+      </div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-icon">⚡</div>
+      <div class="spec-info">
+        <div class="spec-label">CUDA</div>
+        <div class="spec-value">Versao 13.2</div>
+        <div class="spec-sub">Driver 596.36 · Atualizado e estavel</div>
+        <div class="spec-bar"><div class="spec-bar-fill" style="width: 100%; background: linear-gradient(90deg, var(--green), #00ff88)"></div></div>
+      </div>
+    </div>
+    <div class="spec-card">
+      <div class="spec-icon">🛠️</div>
+      <div class="spec-info">
+        <div class="spec-label">Dev Tools</div>
+        <div class="spec-value">Node v24 · Python 3.13</div>
+        <div class="spec-sub">npm 11 · pip 26 · git 2.54 — tudo instalado</div>
+        <div class="spec-bar"><div class="spec-bar-fill" style="width: 100%; background: linear-gradient(90deg, var(--green), #00ff88)"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">Capacidade por Categoria</div>
+  <h3 class="section-title" style="font-size: 1.2rem; margin-bottom: 16px;">O que o seu setup consegue fazer</h3>
+
+  <div class="cap-meter mb-6">
+    <div class="cap-row">
+      <div class="cap-label">LLMs Locais</div>
+      <div class="cap-bar-wrap"><div class="cap-bar" style="width:88%; background: linear-gradient(90deg, var(--green), #00ff88)"></div></div>
+      <div class="cap-score" style="color:var(--green)">Exce.</div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-label">TTS / Voz</div>
+      <div class="cap-bar-wrap"><div class="cap-bar" style="width:92%; background: linear-gradient(90deg, var(--green), #00ff88)"></div></div>
+      <div class="cap-score" style="color:var(--green)">Exce.</div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-label">Blender EEVEE</div>
+      <div class="cap-bar-wrap"><div class="cap-bar" style="width:85%; background: linear-gradient(90deg, var(--green), #00ff88)"></div></div>
+      <div class="cap-score" style="color:var(--green)">Exce.</div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-label">After Effects</div>
+      <div class="cap-bar-wrap"><div class="cap-bar" style="width:80%; background: linear-gradient(90deg, var(--blue), #60d0ff)"></div></div>
+      <div class="cap-score" style="color:var(--blue)">Bom</div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-label">Image Gen SD 1.5</div>
+      <div class="cap-bar-wrap"><div class="cap-bar" style="width:42%; background: linear-gradient(90deg, var(--yellow), #ffdd00)"></div></div>
+      <div class="cap-score" style="color:var(--yellow)">Lento</div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-label">Blender CUDA</div>
+      <div class="cap-bar-wrap"><div class="cap-bar" style="width:38%; background: linear-gradient(90deg, var(--yellow), #ffdd00)"></div></div>
+      <div class="cap-score" style="color:var(--yellow)">Lento</div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-label">SDXL / Flux</div>
+      <div class="cap-bar-wrap"><div class="cap-bar" style="width:5%; background: var(--red)"></div></div>
+      <div class="cap-score" style="color:var(--red)">Nao</div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-label">Video Gen Local</div>
+      <div class="cap-bar-wrap"><div class="cap-bar" style="width:5%; background: var(--red)"></div></div>
+      <div class="cap-score" style="color:var(--red)">Nao</div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">GPU em Detalhe</div>
+  <h3 class="section-title" style="font-size: 1.2rem; margin-bottom: 16px;">GTX 1650 — O que suporta</h3>
+
+  <div class="grid-3 mb-6">
+    <div class="card card-green">
+      <span class="status status-ok">SUPORTADO</span>
+      <h3 class="mt-4">CUDA 13.2</h3>
+      <p>GPU compute para IA, rendering, video processing. Driver atualizado abril 2026 com suporte completo.</p>
+    </div>
+    <div class="card card-green">
+      <span class="status status-ok">SUPORTADO</span>
+      <h3 class="mt-4">EEVEE Realtime</h3>
+      <p>Rasterizacao em tempo real no Blender. Performance excelente para previews e animacoes.</p>
+    </div>
+    <div class="card card-blue">
+      <span class="status status-info">LENTO MAS OK</span>
+      <h3 class="mt-4">Cycles CUDA</h3>
+      <p>Ray tracing com CUDA. Funciona, mas e lento em cenas complexas (30min-4h por frame).</p>
+    </div>
+    <div class="card card-red">
+      <span class="status status-no">NAO SUPORTADO</span>
+      <h3 class="mt-4">OptiX (RTX)</h3>
+      <p>Requer placas RTX. GTX 1650 nao tem RT Cores. Use CUDA como alternativa.</p>
+    </div>
+    <div class="card card-red">
+      <span class="status status-no">INSUFICIENTE</span>
+      <h3 class="mt-4">SDXL / Flux / SD3</h3>
+      <p>Precisam de 8-33 GB de VRAM. Com 4 GB, inviavel. Apenas SD 1.5 512x512 funciona.</p>
+    </div>
+    <div class="card card-red">
+      <span class="status status-no">INSUFICIENTE</span>
+      <h3 class="mt-4">Video Gen Local</h3>
+      <p>Wan2.1, AnimateDiff, CogVideoX — todos precisam 8 GB+ VRAM. Use servicos cloud.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═════════════════════════════ PAGE 2: AFTER EFFECTS ════════════════════════════════ -->
+<div id="tab-aftereffects" class="page">
+<div class="container">
+
+  <div class="section-label">Integracao</div>
+  <h2 class="section-title">After Effects + Claude</h2>
+  <p class="section-desc">MCPs, plugins, APIs e o que os profissionais realmente usam para automatizar e criar no After Effects com IA em 2025-2026.</p>
+
+  <div class="callout callout-purple">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <div class="callout-title">Como Claude controla o After Effects</div>
+      <div class="callout-text">Claude processa linguagem natural → MCP server traduz para ExtendScript JSX → executado dentro do After Effects via painel CEP (extensao). E como ter um programador de scripting AE disponivel 24/7.</div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">MCPs — Mais Populares</div>
+  <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 16px;">Servidores MCP para After Effects</h3>
+
+  <div class="grid-3 mb-6">
+    <div class="tool-card">
+      <div class="tool-header">
+        <div>
+          <div class="card-tag tag-purple">MCP SERVER</div>
+          <div class="tool-name">ishu86/after-effects-mcp</div>
+        </div>
+        <div class="tool-stars">⭐ Alto</div>
+      </div>
+      <div class="tool-desc">O mais completo. Mais de 70 ferramentas cobrindo composicoes, camadas, keyframes, expressoes, efeitos e templates prontos (lower thirds, titulos, transicoes).</div>
+      <div class="tool-tags">
+        <span class="tag tag-green">70+ ferramentas</span>
+        <span class="tag tag-purple">Templates</span>
+        <span class="tag tag-blue">ExtendScript</span>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-header">
+        <div>
+          <div class="card-tag tag-purple">MCP SERVER</div>
+          <div class="tool-name">Dakkshin/after-effects-mcp</div>
+        </div>
+        <div class="tool-stars">⭐ 242</div>
+      </div>
+      <div class="tool-desc">Controle remoto via CEP panel. Composicoes, texto, shapes, solidos e propriedades via ExtendScript. Mais adotado pela comunidade.</div>
+      <div class="tool-tags">
+        <span class="tag tag-green">CEP Panel</span>
+        <span class="tag tag-blue">Mais popular</span>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-header">
+        <div>
+          <div class="card-tag tag-purple">MCP SERVER</div>
+          <div class="tool-name">p10q/ae-mcp</div>
+        </div>
+        <div class="tool-stars">⭐ Ativo</div>
+      </div>
+      <div class="tool-desc">Comunicacao por arquivo (mais estavel que socket). TypeScript. Boa opcao para producao — menos bugs de conexao.</div>
+      <div class="tool-tags">
+        <span class="tag tag-orange">File-based</span>
+        <span class="tag tag-blue">TypeScript</span>
+        <span class="tag tag-green">Estavel</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">Plugins — Pagos</div>
+  <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 16px;">Ferramentas Comerciais (aescripts.com)</h3>
+
+  <div class="table-wrap mb-6">
+    <table>
+      <thead>
+        <tr>
+          <th>Ferramenta</th>
+          <th>Modelo AI</th>
+          <th>Destaque</th>
+          <th>Modelo de Preco</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Claude Scripter</td>
+          <td>Claude Opus</td>
+          <td>Gera e executa JSX via texto natural</td>
+          <td>Sua API key (uso = $1-3/mes)</td>
+          <td><span class="status status-ok">Recomendado</span></td>
+        </tr>
+        <tr>
+          <td>AE GPT</td>
+          <td>Claude Sonnet 4, GPT-4o, Gemini, Ollama</td>
+          <td>Modo Agente — escreve e roda scripts sem confirmacao</td>
+          <td>Sua API key</td>
+          <td><span class="status status-ok">Mais Completo</span></td>
+        </tr>
+        <tr>
+          <td>LLM Assistant (Adobe)</td>
+          <td>Varios</td>
+          <td>Plugin oficial Adobe Exchange para AE + Premiere</td>
+          <td>Incluso / Adobe</td>
+          <td><span class="status status-info">Oficial</span></td>
+        </tr>
+        <tr>
+          <td>RunScript</td>
+          <td>Claude, ChatGPT, Grok</td>
+          <td>Extensao Chrome: gera no browser, executa no AE</td>
+          <td>Gratis / pago</td>
+          <td><span class="status status-ok">Pratico</span></td>
+        </tr>
+        <tr>
+          <td>Klutz GPT</td>
+          <td>GPT 3.5</td>
+          <td>Scripts e expressoes basicas</td>
+          <td>Pago</td>
+          <td><span class="status status-warn">Basico</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">3D no After Effects</div>
+  <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 16px;">After Effects tem 3D nativo?</h3>
+
+  <div class="grid-3 mb-6">
+    <div class="card card-accent">
+      <span class="card-icon">🎬</span>
+      <h3>AE 3D Nativo</h3>
+      <p>Camadas 3D, cameras, luzes. AE 25.6 melhorou gizmos multi-layer. Bom para motion graphics 3D simples.</p>
+      <div class="tool-tags mt-4">
+        <span class="tag tag-green">Incluso no AE</span>
+      </div>
+    </div>
+    <div class="card card-blue">
+      <span class="card-icon">🎭</span>
+      <h3>Cinema 4D Lite</h3>
+      <p>Versao limitada do C4D bundled com AE. Via Cineware. Sem modeling, sem MoGraph, sem plugins. Bom para 3D simples.</p>
+      <div class="tool-tags mt-4">
+        <span class="tag tag-blue">Incluso no AE</span>
+        <span class="tag tag-gray">Limitado</span>
+      </div>
+    </div>
+    <div class="card card-orange">
+      <span class="card-icon">🧊</span>
+      <h3>Blender + BlenderAe2</h3>
+      <p>Melhor opcao para 3D real. Blender gratis cria o 3D, BlenderAe2 exporta .glb e sincroniza cameras/luzes com AE.</p>
+      <div class="tool-tags mt-4">
+        <span class="tag tag-green">Blender: Gratis</span>
+        <span class="tag tag-orange">Plugin: Pago</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">Workflow Real</div>
+  <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 12px;">O que os profissionais usam em 2025-2026</h3>
+
+  <div class="workflow mb-4">
+    <div class="wf-item">💬 Ideia / Texto</div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-item">🤖 Claude + MCP</div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-item">🧊 Blender MCP</div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-item">📦 BlenderAe2</div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-item">🎬 After Effects</div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-item">✂️ Premiere Pro</div>
+  </div>
+
+  <div class="grid-2 mb-6">
+    <div class="callout callout-green">
+      <div class="callout-icon">✅</div>
+      <div class="callout-body">
+        <div class="callout-title">O que a IA ja substitui bem</div>
+        <div class="callout-text">Renomear camadas em batch, offsetar keyframes, aplicar expressoes matematicas, criar composicoes repetitivas, automatizar exports. Tarefas "chatas" que consumiam horas.</div>
+      </div>
+    </div>
+    <div class="callout callout-yellow">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body">
+        <div class="callout-title">O que ainda precisa de voce</div>
+        <div class="callout-text">Direcionamento criativo, storytelling, ritmo, gosto estetico, timing emocional. "Gosto e o ativo mais valioso que um artista pode ter."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Stack Tipica</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Objetivo</th><th>Ferramenta</th><th>Alternativa</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Scripting / Automacao AE</td><td>Claude + after-effects-mcp</td><td>Claude Scripter</td></tr>
+        <tr><td>3D Elements</td><td>Blender + Blender MCP</td><td>Cinema 4D Lite</td></tr>
+        <tr><td>Imagens AI Locais</td><td>Diffusae 2 (SD nativo no AE)</td><td>ComfyUI externo</td></tr>
+        <tr><td>Footage de Video AI</td><td>Runway Gen-4 / Kling</td><td>Google Flow / Sora</td></tr>
+        <tr><td>Composicao Final</td><td>After Effects</td><td>—</td></tr>
+        <tr><td>Edicao e Entrega</td><td>Premiere Pro</td><td>DaVinci Resolve</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ PAGE 3: BLENDER 3D ════════════════════════════════ -->
+<div id="tab-blender3d" class="page">
+<div class="container">
+
+  <div class="section-label">3D + Claude</div>
+  <h2 class="section-title">Blender + After Effects</h2>
+  <p class="section-desc">Como usar Claude para controlar o Blender via MCP, criar elementos 3D e integrar com After Effects.</p>
+
+  <div class="callout callout-green">
+    <div class="callout-icon">⭐</div>
+    <div class="callout-body">
+      <div class="callout-title">ahujasid/blender-mcp — 21.6k estrelas no GitHub</div>
+      <div class="callout-text">O MCP de Blender mais popular do mundo. Claude controla cenas 3D inteiras em linguagem natural: cria objetos, aplica materiais, move cameras, configura iluminacao e renderiza — tudo por texto.</div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">MCPs de Blender</div>
+  <div class="grid-3 mb-6">
+    <div class="tool-card">
+      <div class="tool-header">
+        <div>
+          <div class="card-tag tag-green">MAIS POPULAR</div>
+          <div class="tool-name">ahujasid/blender-mcp</div>
+        </div>
+        <div class="tool-stars">⭐ 21.6k</div>
+      </div>
+      <div class="tool-desc">Controle natural language completo. Ranking global #53. 1.3 milhao de visitantes. Open source, sem internet apos download.</div>
+      <div class="tool-tags">
+        <span class="tag tag-green">Open Source</span>
+        <span class="tag tag-purple">Python API</span>
+        <span class="tag tag-blue">Mais testado</span>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-header">
+        <div>
+          <div class="card-tag tag-blue">OFICIAL</div>
+          <div class="tool-name">Blender Lab MCP Server</div>
+        </div>
+        <div class="tool-stars">⭐ Oficial</div>
+      </div>
+      <div class="tool-desc">Servidor MCP oficial da Blender Foundation. Leve, integra Python API nativamente. Melhor documentacao.</div>
+      <div class="tool-tags">
+        <span class="tag tag-blue">Blender Lab</span>
+        <span class="tag tag-green">Oficial</span>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-header">
+        <div>
+          <div class="card-tag tag-orange">ALTERNATIVA</div>
+          <div class="tool-name">Wahlfeldt Blender MCP</div>
+        </div>
+        <div class="tool-stars">⭐ Ativo</div>
+      </div>
+      <div class="tool-desc">Python API Blender para modelagem em linguagem natural. Lancado marco 2025. Foco em modelling commands.</div>
+      <div class="tool-tags">
+        <span class="tag tag-orange">Modeling focus</span>
+        <span class="tag tag-blue">2025</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">Workflow 3D para AE</div>
+  <div class="workflow mb-4">
+    <div class="wf-item">💬 "Crie um cubo 3D com material metalico"</div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-item">🤖 Claude + Blender MCP</div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-item">🧊 Blender renderiza</div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-item">📦 BlenderAe2 exporta .glb</div>
+    <div class="wf-arrow">→</div>
+    <div class="wf-item">🎬 After Effects compoe</div>
+  </div>
+
+  <div class="mb-6">
+    <div class="code-block">
+<span class="code-comment"># Exemplo de comando para Claude com Blender MCP</span>
+<span class="code-str">"Crie uma cena com o logo da empresa no centro,
+ adicione iluminacao tres-pontos, configure a camera
+ para um angulo 45 graus, renderize em 1920x1080
+ e exporte como PNG sequence para composicao no After Effects"</span>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">GTX 1650 no Blender</div>
+  <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 16px;">Performance de Rendering</h3>
+
+  <div class="table-wrap mb-6">
+    <table>
+      <thead>
+        <tr>
+          <th>Modo</th>
+          <th>Velocidade</th>
+          <th>Melhor Para</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>EEVEE Realtime</td>
+          <td>120+ FPS viewport</td>
+          <td>Previews, animacoes, trabalho dia a dia</td>
+          <td><span class="status status-ok">Excelente</span></td>
+        </tr>
+        <tr>
+          <td>Cycles + CUDA</td>
+          <td>30min - 4h por frame</td>
+          <td>Renders finais de alta qualidade</td>
+          <td><span class="status status-warn">Lento</span></td>
+        </tr>
+        <tr>
+          <td>Cycles + OptiX</td>
+          <td>N/A</td>
+          <td>Requer RTX — nao disponivel</td>
+          <td><span class="status status-no">GTX nao suporta</span></td>
+        </tr>
+        <tr>
+          <td>CPU Rendering</td>
+          <td>Muito lento</td>
+          <td>Ultimo recurso</td>
+          <td><span class="status status-no">Evitar</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-yellow">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <div class="callout-title">Dica: Use EEVEE para 95% do trabalho</div>
+      <div class="callout-text">Para criacao de video, EEVEE Next e suficiente para a maioria dos casos. Reserve Cycles para renders finais de hero shots. EEVEE e rapido, responsivo e cada vez mais parecido com ray tracing em qualidade.</div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">Alternativas 3D para AE</div>
+  <div class="grid-2 mb-6">
+    <div class="card card-blue">
+      <span class="card-icon">🎭</span>
+      <h3>Cinema 4D Lite (Cineware)</h3>
+      <p>Ja vem incluso no After Effects. Drag &amp; drop de arquivos .c4d. Renderizacao Redshift inclusa no C4D 2025. Limitacoes: sem modeling, sem MoGraph, sem plugins.</p>
+      <div class="tool-tags mt-4">
+        <span class="tag tag-green">Incluso no AE</span>
+        <span class="tag tag-blue">Real-time sync</span>
+        <span class="tag tag-gray">Sem modeling</span>
+      </div>
+    </div>
+    <div class="card card-green">
+      <span class="card-icon">🧊</span>
+      <h3>Blender (Recomendado)</h3>
+      <p>Gratis, open source, poderoso. Modeling completo, MoGraph com Animation Nodes, CUDA support. Integra com AE via BlenderAe2 ou renders exportados.</p>
+      <div class="tool-tags mt-4">
+        <span class="tag tag-green">100% Gratis</span>
+        <span class="tag tag-green">CUDA support</span>
+        <span class="tag tag-purple">MCP disponivel</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ PAGE 4: IA LOCAL ══════════════════════════════════ -->
+<div id="tab-ia-local" class="page">
+<div class="container">
+
+  <div class="section-label">Inteligencia Artificial</div>
+  <h2 class="section-title">IA Local no Seu Setup</h2>
+  <p class="section-desc">O que voce pode rodar localmente com GTX 1650 4GB VRAM — LLMs, imagens, voz — e o que exige servicos cloud.</p>
+
+  <hr class="divider" />
+
+  <div class="section-label">LLMs — Modelos de Linguagem</div>
+  <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">Roda bem com 4 GB VRAM</h3>
+
+  <div class="callout callout-green">
+    <div class="callout-icon">✅</div>
+    <div class="callout-body">
+      <div class="callout-title">LLMs locais sao seu ponto forte</div>
+      <div class="callout-text">Com Ollama ou LM Studio, voce pode rodar modelos de 3-4B parametros em Q4 quantization com qualidade surpreendente. Ideal para assistencia de codigo, escrita, scripting e analise.</div>
+    </div>
+  </div>
+
+  <div class="table-wrap mb-6 mt-4">
+    <table>
+      <thead>
+        <tr>
+          <th>Modelo</th>
+          <th>VRAM</th>
+          <th>Velocidade</th>
+          <th>Qualidade</th>
+          <th>Uso Ideal</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Qwen3 4B Q4</td>
+          <td class="td-mono">~2.75 GB</td>
+          <td>12-15 tok/s</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>Tudo — melhor geral</td>
+          <td><span class="status status-ok">Recomendado</span></td>
+        </tr>
+        <tr>
+          <td>Phi-4-mini</td>
+          <td class="td-mono">~2.2 GB</td>
+          <td>15-20 tok/s</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>Codigo, instrucoes</td>
+          <td><span class="status status-ok">Excelente</span></td>
+        </tr>
+        <tr>
+          <td>SmolLM 1.7B</td>
+          <td class="td-mono">~1.2 GB</td>
+          <td>25+ tok/s</td>
+          <td>⭐⭐⭐</td>
+          <td>Tarefas rapidas, ultraleve</td>
+          <td><span class="status status-ok">Leve</span></td>
+        </tr>
+        <tr>
+          <td>Llama 3.2 8B</td>
+          <td class="td-mono">Nao cabe</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td><span class="status status-no">VRAM insuf.</span></td>
+        </tr>
+        <tr>
+          <td>DeepSeek-R1 7B</td>
+          <td class="td-mono">Nao cabe</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td><span class="status status-no">VRAM insuf.</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2 mb-6">
+    <div class="card card-green">
+      <span class="card-icon">🦙</span>
+      <h3>Ollama — Mais Facil</h3>
+      <p>Instala e roda modelos com um comando. Interface REST local. Integra com Claude Desktop, VS Code, e praticamente tudo.</p>
+      <div class="code-block" style="margin-top:10px; font-size:0.72rem">
+<span class="code-cmd">winget install Ollama.Ollama</span>
+<span class="code-cmd">ollama pull qwen3:4b</span>
+<span class="code-cmd">ollama run qwen3:4b</span>
+      </div>
+    </div>
+    <div class="card card-blue">
+      <span class="card-icon">🖥️</span>
+      <h3>LM Studio — Interface Visual</h3>
+      <p>App com interface grafica para baixar e rodar modelos. Inclui servidor OpenAI-compatible. Otimo para iniciantes.</p>
+      <div class="tool-tags mt-4">
+        <span class="tag tag-blue">GUI amigavel</span>
+        <span class="tag tag-green">API local</span>
+        <span class="tag tag-purple">OpenAI compatible</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">Geracao de Imagens</div>
+  <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">SD 1.5 — Unico viavel com 4 GB</h3>
+
+  <div class="callout callout-yellow">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <div class="callout-title">4 GB VRAM e o limite minimo para geracao de imagens</div>
+      <div class="callout-text">SD 1.5 funciona em 512x512 com flags de otimizacao. SDXL, Flux e SD 3.5 precisam de 8-33 GB e sao inviáveis. Para imagens de alta qualidade, use APIs cloud (Midjourney, DALL-E, Ideogram).</div>
+    </div>
+  </div>
+
+  <div class="table-wrap mb-6 mt-4">
+    <table>
+      <thead>
+        <tr><th>Modelo</th><th>VRAM Min</th><th>Resolucao Max</th><th>Viavel?</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>SD 1.5</td>
+          <td class="td-mono">~4 GB</td>
+          <td>512 x 512</td>
+          <td><span class="status status-warn">Sim (lento, apertado)</span></td>
+        </tr>
+        <tr>
+          <td>SDXL</td>
+          <td class="td-mono">8 GB+</td>
+          <td>1024 x 1024</td>
+          <td><span class="status status-no">Nao</span></td>
+        </tr>
+        <tr>
+          <td>SD 3.5 Medium</td>
+          <td class="td-mono">18 GB+</td>
+          <td>1024+</td>
+          <td><span class="status status-no">Nao</span></td>
+        </tr>
+        <tr>
+          <td>Flux.1</td>
+          <td class="td-mono">33 GB+</td>
+          <td>1024+</td>
+          <td><span class="status status-no">Impossivel</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2 mb-6">
+    <div class="card">
+      <span class="card-icon">🎨</span>
+      <h3>ComfyUI (Recomendado)</h3>
+      <p>Node-based, mais leve que AUTOMATIC1111. Melhor para 4 GB VRAM. Workflow visual, plugins para AE.</p>
+      <div class="code-block" style="margin-top:10px; font-size:0.72rem">
+<span class="code-comment"># flags essenciais para 4GB:</span>
+<span class="code-cmd">--lowvram --gpu-only</span>
+      </div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🎭</span>
+      <h3>Diffusae 2 (Plugin AE)</h3>
+      <p>Roda SD localmente DENTRO do After Effects. Geracao, inpainting, object removal sem sair do AE. Requer 6 GB VRAM idealmente.</p>
+      <div class="tool-tags mt-4">
+        <span class="tag tag-orange">Nativo no AE</span>
+        <span class="tag tag-gray">Pago</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">Video Generation</div>
+  <div class="callout callout-red">
+    <div class="callout-icon">❌</div>
+    <div class="callout-body">
+      <div class="callout-title">Video generation local nao e pratica com 4 GB VRAM</div>
+      <div class="callout-text">Wan2.1, AnimateDiff, CogVideoX, LTX-Video — todos precisam de 8 GB VRAM minimo. A alternativa real sao servicos cloud: Runway Gen-4, Kling AI, Google Flow, Sora 2. Custam $10-50/mes mas entregam resultados profissionais.</div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">TTS — Voz Local</div>
+  <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">Este e o seu ponto mais forte em IA local</h3>
+
+  <div class="callout callout-green">
+    <div class="callout-icon">🎙️</div>
+    <div class="callout-body">
+      <div class="callout-title">TTS de qualidade profissional roda perfeitamente no GTX 1650</div>
+      <div class="callout-text">Voice cloning com XTTS v2 em tempo real. Clone qualquer voz com apenas 6 segundos de audio. Ideal para narracao de videos, locucao, demos — tudo local, sem custo por uso.</div>
+    </div>
+  </div>
+
+  <div class="grid-3 mb-6 mt-4">
+    <div class="tool-card">
+      <div class="tool-header">
+        <div>
+          <div class="card-tag tag-green">RECOMENDADO</div>
+          <div class="tool-name">Coqui XTTS v2</div>
+        </div>
+      </div>
+      <div class="tool-desc">Voice cloning com 6 segundos de audio. 17+ idiomas. Real-time no GTX 1650. Melhor qualidade para clonagem de voz.</div>
+      <div class="tool-tags">
+        <span class="tag tag-green">Voice Clone</span>
+        <span class="tag tag-blue">2-3 GB VRAM</span>
+        <span class="tag tag-purple">Real-time</span>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-header">
+        <div>
+          <div class="card-tag tag-blue">ALTERNATIVA</div>
+          <div class="tool-name">F5-TTS</div>
+        </div>
+      </div>
+      <div class="tool-desc">Competidor moderno do XTTS. Qualidade equivalente, ~3 GB VRAM. Real-time com GPU. Crescendo em popularidade em 2025.</div>
+      <div class="tool-tags">
+        <span class="tag tag-blue">~3 GB VRAM</span>
+        <span class="tag tag-green">Excelente qualidade</span>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-header">
+        <div>
+          <div class="card-tag tag-gray">ULTRA LEVE</div>
+          <div class="tool-name">Piper TTS</div>
+        </div>
+      </div>
+      <div class="tool-desc">Apenas CPU, zero VRAM. 500 MB RAM. 35+ idiomas. Real-time ate em hardware basico. ONNX-based. Qualidade boa mas menos natural.</div>
+      <div class="tool-tags">
+        <span class="tag tag-gray">CPU only</span>
+        <span class="tag tag-green">Zero VRAM</span>
+        <span class="tag tag-blue">35+ idiomas</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════ PAGE 5: INSTALACAO ═════════════════════════════════ -->
+<div id="tab-install" class="page">
+<div class="container">
+
+  <div class="section-label">Guia de Instalacao</div>
+  <h2 class="section-title">O que Instalar Agora</h2>
+  <p class="section-desc">Status atual do sistema e proximos passos recomendados, por ordem de prioridade e impacto.</p>
+
+  <div class="section-label">Status Atual</div>
+  <div class="table-wrap mb-6">
+    <table>
+      <thead>
+        <tr><th>Ferramenta</th><th>Versao</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Node.js</td><td class="td-mono">v24.15.0</td><td><span class="status status-ok">Instalado</span></td></tr>
+        <tr><td>Python</td><td class="td-mono">3.13.13</td><td><span class="status status-ok">Instalado</span></td></tr>
+        <tr><td>npm</td><td class="td-mono">11.14.1</td><td><span class="status status-ok">Instalado</span></td></tr>
+        <tr><td>pip</td><td class="td-mono">26.0.1</td><td><span class="status status-ok">Instalado</span></td></tr>
+        <tr><td>git</td><td class="td-mono">2.54.0</td><td><span class="status status-ok">Instalado</span></td></tr>
+        <tr><td>CUDA</td><td class="td-mono">13.2</td><td><span class="status status-ok">Ativo</span></td></tr>
+        <tr><td>NVIDIA Driver</td><td class="td-mono">596.36</td><td><span class="status status-ok">Atualizado</span></td></tr>
+        <tr><td>After Effects</td><td class="td-mono">Em execucao</td><td><span class="status status-ok">Rodando</span></td></tr>
+        <tr><td>Claude Code</td><td class="td-mono">2.1.142</td><td><span class="status status-ok">Instalado</span></td></tr>
+        <tr><td>Ollama</td><td class="td-mono">—</td><td><span class="status status-no">Nao instalado</span></td></tr>
+        <tr><td>Blender</td><td class="td-mono">—</td><td><span class="status status-no">Nao instalado</span></td></tr>
+        <tr><td>ComfyUI</td><td class="td-mono">—</td><td><span class="status status-no">Nao instalado</span></td></tr>
+        <tr><td>LM Studio</td><td class="td-mono">—</td><td><span class="status status-no">Nao instalado</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">Prioridade 1 — Claude no After Effects (Hoje)</div>
+  <div class="steps mb-6">
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot">1</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-content">
+        <h4>Instalar o MCP de After Effects</h4>
+        <p>Clone o repositorio mais popular e configure no Claude Desktop.</p>
+        <div class="code-block">
+<span class="code-cmd">git clone https://github.com/Dakkshin/after-effects-mcp</span>
+<span class="code-cmd">cd after-effects-mcp</span>
+<span class="code-cmd">npm install</span>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot">2</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-content">
+        <h4>Adicionar ao Claude Desktop config</h4>
+        <p>Edite o arquivo de configuracao do Claude Desktop em <code style="color:var(--accent3)">%APPDATA%\Claude\claude_desktop_config.json</code></p>
+        <div class="code-block">
+{
+  <span class="code-key">"mcpServers"</span>: {
+    <span class="code-key">"after-effects"</span>: {
+      <span class="code-key">"command"</span>: <span class="code-str">"node"</span>,
+      <span class="code-key">"args"</span>: [<span class="code-str">"C:/path/to/after-effects-mcp/index.js"</span>]
+    }
+  }
+}
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot">3</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-content">
+        <h4>Instalar o painel CEP no After Effects</h4>
+        <p>Copie o painel para a pasta de extensoes do AE e habilite extensoes nao assinadas nas preferencias.</p>
+        <div class="code-block">
+<span class="code-comment"># Pasta de extensoes no Windows:</span>
+C:\Users\[user]\AppData\Roaming\Adobe\CEP\extensions\
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot">4</div>
+      </div>
+      <div class="step-content">
+        <h4>Testar com o Claude</h4>
+        <p>Abra o Claude Desktop, depois o After Effects, e experimente:</p>
+        <div class="code-block">
+<span class="code-str">"Crie uma nova composicao 1920x1080 30fps
+com um texto 'Hello World' no centro, fonte Arial 72px,
+cor branca, com um fade in de 30 frames"</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">Prioridade 2 — LLM Local com Ollama</div>
+  <div class="steps mb-6">
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot">1</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-content">
+        <h4>Instalar Ollama</h4>
+        <div class="code-block">
+<span class="code-cmd">winget install Ollama.Ollama --source winget</span>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot">2</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-content">
+        <h4>Baixar o modelo Qwen3 4B</h4>
+        <p>Melhor modelo para 4 GB VRAM. ~2.8 GB de download.</p>
+        <div class="code-block">
+<span class="code-cmd">ollama pull qwen3:4b</span>
+<span class="code-cmd">ollama run qwen3:4b</span>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot">3</div>
+      </div>
+      <div class="step-content">
+        <h4>Usar no AE GPT (plugin)</h4>
+        <p>Configure a URL local <code style="color:var(--accent3)">http://localhost:11434</code> no plugin AE GPT para usar modelos locais gratuitos dentro do After Effects.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">Prioridade 3 — Blender + MCP</div>
+  <div class="steps mb-6">
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot">1</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-content">
+        <h4>Instalar Blender</h4>
+        <div class="code-block">
+<span class="code-cmd">winget install BlenderFoundation.Blender --source winget</span>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot">2</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-content">
+        <h4>Instalar Blender MCP addon</h4>
+        <div class="code-block">
+<span class="code-comment"># No terminal Python do Blender ou pip:</span>
+<span class="code-cmd">pip install blender-mcp</span>
+<span class="code-comment"># Ou via GitHub: ahujasid/blender-mcp</span>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot">3</div>
+      </div>
+      <div class="step-content">
+        <h4>Configurar CUDA no Blender</h4>
+        <p>Edit > Preferences > System > Cycles Render Devices. Selecione CUDA e marque a GTX 1650. Use EEVEE para trabalho rapido, Cycles para renders finais.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">Prioridade 4 — TTS Local</div>
+  <div class="steps mb-6">
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot">1</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-content">
+        <h4>Instalar Coqui XTTS v2</h4>
+        <div class="code-block">
+<span class="code-cmd">pip install TTS</span>
+<span class="code-cmd">tts --model_name tts_models/multilingual/multi-dataset/xtts_v2 \</span>
+<span class="code-cmd">    --text "Ola, este e um teste de voz clonada" \</span>
+<span class="code-cmd">    --speaker_wav minha_voz.wav \</span>
+<span class="code-cmd">    --language_idx pt \</span>
+<span class="code-cmd">    --out_path output.wav</span>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot">2</div>
+      </div>
+      <div class="step-content">
+        <h4>Para TTS ultra-leve (CPU): Piper</h4>
+        <div class="code-block">
+<span class="code-cmd">pip install piper-tts</span>
+<span class="code-cmd">echo "Texto para narrar" | piper --model pt_BR-edresson-low \</span>
+<span class="code-cmd">     --output_file narration.wav</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="section-label">Prioridade 5 — Imagens com ComfyUI</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot">1</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-content">
+        <h4>Instalar ComfyUI</h4>
+        <div class="code-block">
+<span class="code-cmd">git clone https://github.com/comfyanonymous/ComfyUI</span>
+<span class="code-cmd">cd ComfyUI</span>
+<span class="code-cmd">pip install -r requirements.txt</span>
+<span class="code-cmd">python main.py --lowvram --gpu-only</span>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line">
+        <div class="step-dot">2</div>
+      </div>
+      <div class="step-content">
+        <h4>Baixar modelo SD 1.5</h4>
+        <p>Coloque o .safetensors em <code style="color:var(--accent3)">ComfyUI/models/checkpoints/</code>. Use apenas SD 1.5 — SDXL nao funciona com 4 GB VRAM.</p>
+        <div class="callout callout-yellow" style="margin-top:8px">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <div class="callout-title">Limitacao: apenas 512x512</div>
+            <div class="callout-text">Com 4 GB VRAM, resolucoes maiores causam out-of-memory. Para imagens de alta qualidade, use Midjourney, DALL-E 3, ou Ideogram via API.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════ FOOTER ═══════════════════════════════════════ -->
+<footer>
+  <p>Gerado em Maio 2026 · Baseado em pesquisa de ferramentas reais e analise do sistema</p>
+  <p style="margin-top: 6px;">
+    <a href="https://github.com/ahujasid/blender-mcp" class="link">Blender MCP</a> ·
+    <a href="https://github.com/Dakkshin/after-effects-mcp" class="link">AE MCP</a> ·
+    <a href="https://aescripts.com/claude-scripter/" class="link">Claude Scripter</a> ·
+    <a href="https://ollama.com" class="link">Ollama</a> ·
+    <a href="https://github.com/comfyanonymous/ComfyUI" class="link">ComfyUI</a>
+  </p>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">↑</button>
+
+<script>
+  function showTab(name, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Scroll to top button
+  const scrollTop = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    scrollTop.classList.toggle('visible', window.scrollY > 300);
+  });
+
+  // Animate bars on load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.spec-bar-fill, .cap-bar').forEach(el => {
+        const w = el.style.width;
+        el.style.width = '0';
+        requestAnimationFrame(() => {
+          setTimeout(() => { el.style.width = w; }, 50);
+        });
+      });
+    }, 100);
+  });
+</script>
+</body>
+</html>
