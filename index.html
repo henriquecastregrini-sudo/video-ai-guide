@@ -715,6 +715,15 @@
 
     a.link:hover { text-decoration: underline; }
 
+    a.tl {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(255,255,255,0.2);
+      transition: color 0.15s, border-color 0.15s;
+    }
+    a.tl:hover { color: var(--accent3); border-color: var(--accent3); }
+    a.tl::after { content: ' ↗'; font-size: 0.65em; opacity: 0.4; }
+
     .mb-4 { margin-bottom: 16px; }
     .mb-6 { margin-bottom: 24px; }
     .mt-4 { margin-top: 16px; }
@@ -932,7 +941,7 @@
       <div class="tool-header">
         <div>
           <div class="card-tag tag-purple">MCP SERVER</div>
-          <div class="tool-name">ishu86/after-effects-mcp</div>
+          <div class="tool-name"><a href="https://github.com/ishu86/after-effects-mcp" target="_blank" class="tl">ishu86/after-effects-mcp</a></div>
         </div>
         <div class="tool-stars">⭐ Alto</div>
       </div>
@@ -948,7 +957,7 @@
       <div class="tool-header">
         <div>
           <div class="card-tag tag-purple">MCP SERVER</div>
-          <div class="tool-name">Dakkshin/after-effects-mcp</div>
+          <div class="tool-name"><a href="https://github.com/Dakkshin/after-effects-mcp" target="_blank" class="tl">Dakkshin/after-effects-mcp</a></div>
         </div>
         <div class="tool-stars">⭐ 242</div>
       </div>
@@ -963,7 +972,7 @@
       <div class="tool-header">
         <div>
           <div class="card-tag tag-purple">MCP SERVER</div>
-          <div class="tool-name">p10q/ae-mcp</div>
+          <div class="tool-name"><a href="https://github.com/p10q/ae-mcp" target="_blank" class="tl">p10q/ae-mcp</a></div>
         </div>
         <div class="tool-stars">⭐ Ativo</div>
       </div>
@@ -994,35 +1003,35 @@
       </thead>
       <tbody>
         <tr>
-          <td>Claude Scripter</td>
+          <td><a href="https://aescripts.com/claude-scripter/" target="_blank" class="tl">Claude Scripter</a></td>
           <td>Claude Opus</td>
           <td>Gera e executa JSX via texto natural</td>
           <td>Sua API key (uso = $1-3/mes)</td>
           <td><span class="status status-ok">Recomendado</span></td>
         </tr>
         <tr>
-          <td>AE GPT</td>
+          <td><a href="https://aescripts.com/ae-gpt/" target="_blank" class="tl">AE GPT</a></td>
           <td>Claude Sonnet 4, GPT-4o, Gemini, Ollama</td>
           <td>Modo Agente — escreve e roda scripts sem confirmacao</td>
           <td>Sua API key</td>
           <td><span class="status status-ok">Mais Completo</span></td>
         </tr>
         <tr>
-          <td>LLM Assistant (Adobe)</td>
+          <td><a href="https://exchange.adobe.com/apps/cc/204847/llm-assistant-for-premiere-and-after-effects" target="_blank" class="tl">LLM Assistant (Adobe)</a></td>
           <td>Varios</td>
           <td>Plugin oficial Adobe Exchange para AE + Premiere</td>
           <td>Incluso / Adobe</td>
           <td><span class="status status-info">Oficial</span></td>
         </tr>
         <tr>
-          <td>RunScript</td>
+          <td><a href="https://curlyfrolic.medium.com/runscript-connect-chatgpt-claude-grok-to-after-effects-instantly-no-more-jsx-files-c8a9f4023de8" target="_blank" class="tl">RunScript</a></td>
           <td>Claude, ChatGPT, Grok</td>
           <td>Extensao Chrome: gera no browser, executa no AE</td>
           <td>Gratis / pago</td>
           <td><span class="status status-ok">Pratico</span></td>
         </tr>
         <tr>
-          <td>Klutz GPT</td>
+          <td><a href="https://aescripts.com/klutz-gpt/" target="_blank" class="tl">Klutz GPT</a></td>
           <td>GPT 3.5</td>
           <td>Scripts e expressoes basicas</td>
           <td>Pago</td>
@@ -1109,10 +1118,10 @@
         <tr><th>Objetivo</th><th>Ferramenta</th><th>Alternativa</th></tr>
       </thead>
       <tbody>
-        <tr><td>Scripting / Automacao AE</td><td>Claude + after-effects-mcp</td><td>Claude Scripter</td></tr>
-        <tr><td>3D Elements</td><td>Blender + Blender MCP</td><td>Cinema 4D Lite</td></tr>
-        <tr><td>Imagens AI Locais</td><td>Diffusae 2 (SD nativo no AE)</td><td>ComfyUI externo</td></tr>
-        <tr><td>Footage de Video AI</td><td>Runway Gen-4 / Kling</td><td>Google Flow / Sora</td></tr>
+        <tr><td>Scripting / Automacao AE</td><td><a href="https://github.com/Dakkshin/after-effects-mcp" target="_blank" class="tl">Claude + after-effects-mcp</a></td><td><a href="https://aescripts.com/claude-scripter/" target="_blank" class="tl">Claude Scripter</a></td></tr>
+        <tr><td>3D Elements</td><td><a href="https://github.com/ahujasid/blender-mcp" target="_blank" class="tl">Blender + Blender MCP</a></td><td>Cinema 4D Lite</td></tr>
+        <tr><td>Imagens AI Locais</td><td><a href="https://aescripts.com/diffusae/" target="_blank" class="tl">Diffusae 2 (SD nativo no AE)</a></td><td><a href="https://github.com/comfyanonymous/ComfyUI" target="_blank" class="tl">ComfyUI externo</a></td></tr>
+        <tr><td>Footage de Video AI</td><td><a href="https://runwayml.com" target="_blank" class="tl">Runway Gen-4</a> / <a href="https://klingai.com" target="_blank" class="tl">Kling</a></td><td><a href="https://labs.google/flow" target="_blank" class="tl">Google Flow</a> / <a href="https://sora.com" target="_blank" class="tl">Sora</a></td></tr>
         <tr><td>Composicao Final</td><td>After Effects</td><td>—</td></tr>
         <tr><td>Edicao e Entrega</td><td>Premiere Pro</td><td>DaVinci Resolve</td></tr>
       </tbody>
@@ -1133,7 +1142,7 @@
   <div class="callout callout-green">
     <div class="callout-icon">⭐</div>
     <div class="callout-body">
-      <div class="callout-title">ahujasid/blender-mcp — 21.6k estrelas no GitHub</div>
+      <div class="callout-title"><a href="https://github.com/ahujasid/blender-mcp" target="_blank" class="tl">ahujasid/blender-mcp</a> — 21.6k estrelas no GitHub</div>
       <div class="callout-text">O MCP de Blender mais popular do mundo. Claude controla cenas 3D inteiras em linguagem natural: cria objetos, aplica materiais, move cameras, configura iluminacao e renderiza — tudo por texto.</div>
     </div>
   </div>
@@ -1146,7 +1155,7 @@
       <div class="tool-header">
         <div>
           <div class="card-tag tag-green">MAIS POPULAR</div>
-          <div class="tool-name">ahujasid/blender-mcp</div>
+          <div class="tool-name"><a href="https://github.com/ahujasid/blender-mcp" target="_blank" class="tl">ahujasid/blender-mcp</a></div>
         </div>
         <div class="tool-stars">⭐ 21.6k</div>
       </div>
@@ -1162,7 +1171,7 @@
       <div class="tool-header">
         <div>
           <div class="card-tag tag-blue">OFICIAL</div>
-          <div class="tool-name">Blender Lab MCP Server</div>
+          <div class="tool-name"><a href="https://www.blender.org/lab/mcp-server/" target="_blank" class="tl">Blender Lab MCP Server</a></div>
         </div>
         <div class="tool-stars">⭐ Oficial</div>
       </div>
@@ -1177,7 +1186,7 @@
       <div class="tool-header">
         <div>
           <div class="card-tag tag-orange">ALTERNATIVA</div>
-          <div class="tool-name">Wahlfeldt Blender MCP</div>
+          <div class="tool-name"><a href="https://github.com/chriswahlfeldt/blender-mcp" target="_blank" class="tl">Wahlfeldt Blender MCP</a></div>
         </div>
         <div class="tool-stars">⭐ Ativo</div>
       </div>
@@ -1376,7 +1385,7 @@
   <div class="grid-2 mb-6">
     <div class="card card-green">
       <span class="card-icon">🦙</span>
-      <h3>Ollama — Mais Facil</h3>
+      <h3><a href="https://ollama.com" target="_blank" class="tl">Ollama — Mais Facil</a></h3>
       <p>Instala e roda modelos com um comando. Interface REST local. Integra com Claude Desktop, VS Code, e praticamente tudo.</p>
       <div class="code-block" style="margin-top:10px; font-size:0.72rem">
 <span class="code-cmd">winget install Ollama.Ollama</span>
@@ -1386,7 +1395,7 @@
     </div>
     <div class="card card-blue">
       <span class="card-icon">🖥️</span>
-      <h3>LM Studio — Interface Visual</h3>
+      <h3><a href="https://lmstudio.ai" target="_blank" class="tl">LM Studio — Interface Visual</a></h3>
       <p>App com interface grafica para baixar e rodar modelos. Inclui servidor OpenAI-compatible. Otimo para iniciantes.</p>
       <div class="tool-tags mt-4">
         <span class="tag tag-blue">GUI amigavel</span>
@@ -1446,7 +1455,7 @@
   <div class="grid-2 mb-6">
     <div class="card">
       <span class="card-icon">🎨</span>
-      <h3>ComfyUI (Recomendado)</h3>
+      <h3><a href="https://github.com/comfyanonymous/ComfyUI" target="_blank" class="tl">ComfyUI (Recomendado)</a></h3>
       <p>Node-based, mais leve que AUTOMATIC1111. Melhor para 4 GB VRAM. Workflow visual, plugins para AE.</p>
       <div class="code-block" style="margin-top:10px; font-size:0.72rem">
 <span class="code-comment"># flags essenciais para 4GB:</span>
@@ -1455,7 +1464,7 @@
     </div>
     <div class="card">
       <span class="card-icon">🎭</span>
-      <h3>Diffusae 2 (Plugin AE)</h3>
+      <h3><a href="https://aescripts.com/diffusae/" target="_blank" class="tl">Diffusae 2 (Plugin AE)</a></h3>
       <p>Roda SD localmente DENTRO do After Effects. Geracao, inpainting, object removal sem sair do AE. Requer 6 GB VRAM idealmente.</p>
       <div class="tool-tags mt-4">
         <span class="tag tag-orange">Nativo no AE</span>
@@ -1493,7 +1502,7 @@
       <div class="tool-header">
         <div>
           <div class="card-tag tag-green">RECOMENDADO</div>
-          <div class="tool-name">Coqui XTTS v2</div>
+          <div class="tool-name"><a href="https://huggingface.co/coqui/XTTS-v2" target="_blank" class="tl">Coqui XTTS v2</a></div>
         </div>
       </div>
       <div class="tool-desc">Voice cloning com 6 segundos de audio. 17+ idiomas. Real-time no GTX 1650. Melhor qualidade para clonagem de voz.</div>
@@ -1508,7 +1517,7 @@
       <div class="tool-header">
         <div>
           <div class="card-tag tag-blue">ALTERNATIVA</div>
-          <div class="tool-name">F5-TTS</div>
+          <div class="tool-name"><a href="https://github.com/SWivid/F5-TTS" target="_blank" class="tl">F5-TTS</a></div>
         </div>
       </div>
       <div class="tool-desc">Competidor moderno do XTTS. Qualidade equivalente, ~3 GB VRAM. Real-time com GPU. Crescendo em popularidade em 2025.</div>
@@ -1522,7 +1531,7 @@
       <div class="tool-header">
         <div>
           <div class="card-tag tag-gray">ULTRA LEVE</div>
-          <div class="tool-name">Piper TTS</div>
+          <div class="tool-name"><a href="https://github.com/rhasspy/piper" target="_blank" class="tl">Piper TTS</a></div>
         </div>
       </div>
       <div class="tool-desc">Apenas CPU, zero VRAM. 500 MB RAM. 35+ idiomas. Real-time ate em hardware basico. ONNX-based. Qualidade boa mas menos natural.</div>
@@ -1798,13 +1807,75 @@ cor branca, com um fade in de 30 frames"</span>
 
 <!-- ═══════════════════════════════════════ FOOTER ═══════════════════════════════════════ -->
 <footer>
-  <p>Gerado em Maio 2026 · Baseado em pesquisa de ferramentas reais e analise do sistema</p>
-  <p style="margin-top: 6px;">
-    <a href="https://github.com/ahujasid/blender-mcp" class="link">Blender MCP</a> ·
-    <a href="https://github.com/Dakkshin/after-effects-mcp" class="link">AE MCP</a> ·
-    <a href="https://aescripts.com/claude-scripter/" class="link">Claude Scripter</a> ·
-    <a href="https://ollama.com" class="link">Ollama</a> ·
-    <a href="https://github.com/comfyanonymous/ComfyUI" class="link">ComfyUI</a>
+  <p style="font-size:0.8rem; color:var(--text2); margin-bottom:20px;">Gerado em Maio 2026 · Baseado em pesquisa de ferramentas reais e analise do sistema</p>
+
+  <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; text-align:left; margin-bottom:24px;">
+    <div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;">After Effects MCPs</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <a href="https://github.com/ishu86/after-effects-mcp" target="_blank" class="link">ishu86/after-effects-mcp ↗</a>
+        <a href="https://github.com/Dakkshin/after-effects-mcp" target="_blank" class="link">Dakkshin/after-effects-mcp ↗</a>
+        <a href="https://github.com/p10q/ae-mcp" target="_blank" class="link">p10q/ae-mcp ↗</a>
+        <a href="https://mcpservers.org/servers/thellamainator/after-effects-mcp" target="_blank" class="link">TheLlamainator/after-effects-mcp ↗</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;">Plugins AE</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <a href="https://aescripts.com/claude-scripter/" target="_blank" class="link">Claude Scripter ↗</a>
+        <a href="https://aescripts.com/ae-gpt/" target="_blank" class="link">AE GPT ↗</a>
+        <a href="https://aescripts.com/diffusae/" target="_blank" class="link">Diffusae 2 ↗</a>
+        <a href="https://aescripts.com/local-diffusion/" target="_blank" class="link">Local Diffusion ↗</a>
+        <a href="https://aescripts.com/blenderae/" target="_blank" class="link">BlenderAe2 ↗</a>
+        <a href="https://aescripts.com/klutz-gpt/" target="_blank" class="link">Klutz GPT ↗</a>
+        <a href="https://exchange.adobe.com/apps/cc/204847/llm-assistant-for-premiere-and-after-effects" target="_blank" class="link">LLM Assistant (Adobe) ↗</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;">Blender + 3D</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <a href="https://github.com/ahujasid/blender-mcp" target="_blank" class="link">ahujasid/blender-mcp ↗</a>
+        <a href="https://www.blender.org/lab/mcp-server/" target="_blank" class="link">Blender Lab MCP ↗</a>
+        <a href="https://www.blender.org/download/" target="_blank" class="link">Blender Download ↗</a>
+        <a href="https://www.maxon.net/en/cinema-4d/features/cineware-for-after-effects" target="_blank" class="link">Cinema 4D Cineware ↗</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;">IA Local</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <a href="https://ollama.com" target="_blank" class="link">Ollama ↗</a>
+        <a href="https://lmstudio.ai" target="_blank" class="link">LM Studio ↗</a>
+        <a href="https://github.com/comfyanonymous/ComfyUI" target="_blank" class="link">ComfyUI ↗</a>
+        <a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui" target="_blank" class="link">AUTOMATIC1111 ↗</a>
+        <a href="https://huggingface.co/coqui/XTTS-v2" target="_blank" class="link">Coqui XTTS v2 ↗</a>
+        <a href="https://github.com/SWivid/F5-TTS" target="_blank" class="link">F5-TTS ↗</a>
+        <a href="https://github.com/rhasspy/piper" target="_blank" class="link">Piper TTS ↗</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;">Modelos</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <a href="https://ollama.com/library/qwen3" target="_blank" class="link">Qwen3 4B (Ollama) ↗</a>
+        <a href="https://ollama.com/library/phi4-mini" target="_blank" class="link">Phi-4-mini (Ollama) ↗</a>
+        <a href="https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B" target="_blank" class="link">SmolLM 1.7B ↗</a>
+        <a href="https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B" target="_blank" class="link">DeepSeek-R1 Distill ↗</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;">Video Cloud</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <a href="https://runwayml.com" target="_blank" class="link">Runway Gen-4 ↗</a>
+        <a href="https://klingai.com" target="_blank" class="link">Kling AI ↗</a>
+        <a href="https://labs.google/flow" target="_blank" class="link">Google Flow ↗</a>
+        <a href="https://sora.com" target="_blank" class="link">Sora ↗</a>
+        <a href="https://midjourney.com" target="_blank" class="link">Midjourney ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size:0.72rem; color:var(--text3);">
+    <a href="https://github.com/henriquecastregrini-sudo/video-ai-guide" target="_blank" class="link">Ver codigo fonte ↗</a>
+    &nbsp;·&nbsp; Gerado com Claude Code
   </p>
 </footer>
 
